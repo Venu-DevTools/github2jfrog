@@ -20,10 +20,10 @@ jobs:
       
       - name: Set up JFrog CLI
         uses: jfrog/setup-jfrog-cli@v3
-        env:
-          JF_URL: http://20.238.18.54:8082/
-          JF_USERNAME: admin
-          JF_PASSWORD: JFrog@12345
+
+      - name: Configure JFrog CLI
+        run: |
+          jfrog config add my-server --artifactory-url=${{ secrets.JF_URL }} --user=${{ secrets.JF_USERNAME }} --password=${{ secrets.JF_PASSWORD }} --interactive=false
 
       - name: Upload to Artifactory
         run: |
