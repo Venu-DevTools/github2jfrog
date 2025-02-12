@@ -1,0 +1,33 @@
+name: Build and Upload to Artifactory (Simplified)
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create artifact files 
+        run: |
+          mkdir my-artifacts
+          echo "This is file 1" > my-artifacts/file1.txt
+          echo "This is file 2" > my-artifacts/file2.json
+         
+
+      - name: Upload to Artifactory
+        uses: jfrog/jfrog-cli-github-action@v2
+        env:
+          JF_URL: ${{ secrets.JF_URL }}
+          JF_USERNAME: ${{ secrets.JF_USERNAME }}
+          JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
+        with:
+          command: upload
+          target: generic-repo-local/
+          source: my-artifacts/*
+          build-name: my-build  
+          build-number: ${{ github.run_number }} # Highly recommended
