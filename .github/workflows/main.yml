@@ -22,4 +22,5 @@ jobs:
           JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
           JFROG_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
         run: |
-          curl -u "$JFROG_USERNAME:$JFROG_PASSWORD" -T artifact.txt "$JFROG_URL/artifactory/generic-repo-local/artifact.txt"
+          curl -u "$JFROG_USERNAME:$JFROG_PASSWORD" -T artifact.txt "$JFROG_URL/artifactory/generic-repo-local/artifact.txt" -v
+
