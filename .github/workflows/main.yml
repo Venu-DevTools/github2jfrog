@@ -25,4 +25,4 @@ jobs:
           JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
           JFROG_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
         run: |
-          curl -u "$JFROG_USERNAME:$JFROG_PASSWORD" -T artifact.zip "$JFROG_URL/artifactory/generic-repo-local/artifact.zip" -v
+          curl -u "$JFROG_USERNAME:$JFROG_PASSWORD" -T artifact.zip "$JFROG_URL/generic-repo-local/artifact.zip" -v
