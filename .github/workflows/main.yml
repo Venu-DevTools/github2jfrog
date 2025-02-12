@@ -1,7 +1,35 @@
 name: Upload Artifacts to JFrog
 
 on:
+  push:name: Upload Artifacts to JFrog
+
+on:
   push:
+    branches:
+      - main  # Adjust the branch as needed
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Create Artifact (Example)
+        run: echo "Hello, JFrog!" > artifact.txt  
+
+      - name: Compress Artifact
+        run: zip artifact.zip artifact.txt  
+
+      - name: Upload to JFrog Artifactory
+        env:
+          JFROG_URL: ${{ secrets.JFROG_URL }}  
+          JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
+          JFROG_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
+        run: |
+          curl -u "$JFROG_USERNAME:$JFROG_PASSWORD" -T artifact.zip "$JFROG_URL/artifactory/generic-repo-local/artifact.zip" -v
+
     branches:
       - main  # Adjust the branch as needed
 
